@@ -45,7 +45,8 @@ posible = [f1, f2, f3]
 # creamos la iteracion de 100,000 veces para dibujar
 for _ in range(100000):
   # elegimos una funcion aleatoria
-  f = random.choices(posible, cum_weights=(0.15,0.35, 0.50), k=1)[0]
+  # f = random.choices(posible, cum_weights=(0.15,0.35, 0.50), k=1)[0]
+  f = random.choices(posible, weights=(0.30,0.30, 0.40), k=1)[0]
   # calculamos el nuevo punto
   x, y = f(x, y)
   # dibujamos el punto
