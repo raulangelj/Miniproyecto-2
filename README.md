@@ -1,1 +1,1 @@
-# Miniproyecto-2
+# Miniproyecto-2-Números Aleatorios
