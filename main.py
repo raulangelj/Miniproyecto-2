@@ -4,6 +4,8 @@ Raul Jimenez 19017
 Donaldo Garcia 19683
 """
 # %%
+import math
+from operator import add
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -94,12 +96,18 @@ def generador2(x):
   # return x = 7^5 * x mod (2 ^31  - 1)
   return 7**5 * x % (2**31 - 1)
 
+def generador3(x):
+  return random.random()
+
 def create_list(n, f):
   list = []
   x = 1
   for _ in range(n):
-    x = f(x)
-    add_to_list = x/(2**35 - 1) if f == generador1 else x/(2**31 - 1)
+    if f.__name__ == 'generador3':
+      add_to_list = f(x)
+    else:
+      x = f(x)
+      add_to_list = x/(2**35 - 1) if f == generador1 else x/(2**31 - 1)
     # add_to_list only will have tree decimals
     add_to_list = round(add_to_list, 3)
     list.append(add_to_list)
@@ -123,11 +131,20 @@ def generate_asterisks_frecuence_table(n, f):
   print('===============================================================')
   return frecuence_table
 
+# %%
+#  Generador 1
 gen1_100 = generate_asterisks_frecuence_table(100, generador1)
 gen1_5000 = generate_asterisks_frecuence_table(5000, generador1)
 gen1_100000 = generate_asterisks_frecuence_table(100000, generador1)
+# %%
+#  Generador 2
 gen2_100 = generate_asterisks_frecuence_table(100, generador2)
 gen2_5000 = generate_asterisks_frecuence_table(5000, generador2)
 gen2_100000 = generate_asterisks_frecuence_table(100000, generador2)
+# %% 
+# Generador 3
+gen3_100 = generate_asterisks_frecuence_table(100, generador3)
+gen3_5000 = generate_asterisks_frecuence_table(5000, generador3) 
+gen3_100000 = generate_asterisks_frecuence_table(100000, generador3)
 
 # %%
