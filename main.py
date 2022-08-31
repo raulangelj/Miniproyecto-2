@@ -105,19 +105,6 @@ def create_list(n, f):
     list.append(add_to_list)
   return list
 
-# lista = create_list(100, generador1)
-# frecuence_table = {round(i, 1): 0 for i in np.arange(0.0, 1.1, 0.1)}
-# for i in np.arange(0.0, 1.1, 0.1):
-#   i = round(i, 1)
-#   for j in lista:
-#     if i <= j < i + 0.1:
-#       frecuence_table[i] += 1
-# frecuence_table.pop(1)
-# # print the resulta as a frecuence table with asterisks
-# for item in frecuence_table:
-#   # print(item, ':', '*' * frecuence_table[item])
-#   print(item, '-', round(item + 0.1, 1), ':', '*' * frecuence_table[item], '(', frecuence_table[item], ', ', (frecuence_table[item]*100)/100 ,'%)')
-
 def generate_asterisks_frecuence_table(n, f):
   lista = create_list(n, f)
   frecuence_table = {round(i, 1): 0 for i in np.arange(0.0, 1.1, 0.1)}
@@ -132,7 +119,6 @@ def generate_asterisks_frecuence_table(n, f):
   # print the resulta as a frecuence table with asterisks
   print( '=================== n =', n, ', f =', f.__name__, '===================')
   for item in frecuence_table:
-    # print(item, ':', '*' * frecuence_table[item])
     print(item, '-', round(item + 0.1, 1), ':', '*' * int(frecuence_table[item]/denominador), '(', frecuence_table[item], ', ', round((frecuence_table[item]*100)/n, 2) ,'%)')
   print('===============================================================')
   return frecuence_table
