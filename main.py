@@ -5,6 +5,8 @@ Donaldo Garcia 19683
 """
 # %%
 import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
 import random
 
 # %%
@@ -82,4 +84,64 @@ for _ in range(n):
   x, y = f(x, y)
 # mostramos el grafico
 plt.show()
+# %%
+# ejercicio 3.1 Construya un programa que compare estos tres generadores a través de un histograma asteriscos(de 0 a 1 con saltos de 0.1) Use tres comparaciones para 100, 5,000 y 100,000 repeticiones.
+def generador1(x):
+  # return x = 5^5 * x mod (2 ^35  - 1)
+  return 5**5 * x % (2**35 - 1)
+
+def generador2(x):
+  # return x = 7^5 * x mod (2 ^31  - 1)
+  return 7**5 * x % (2**31 - 1)
+
+def create_list(n, f):
+  list = []
+  x = 1
+  for _ in range(n):
+    x = f(x)
+    add_to_list = x/(2**35 - 1) if f == generador1 else x/(2**31 - 1)
+    # add_to_list only will have tree decimals
+    add_to_list = round(add_to_list, 3)
+    list.append(add_to_list)
+  return list
+
+# lista = create_list(100, generador1)
+# frecuence_table = {round(i, 1): 0 for i in np.arange(0.0, 1.1, 0.1)}
+# for i in np.arange(0.0, 1.1, 0.1):
+#   i = round(i, 1)
+#   for j in lista:
+#     if i <= j < i + 0.1:
+#       frecuence_table[i] += 1
+# frecuence_table.pop(1)
+# # print the resulta as a frecuence table with asterisks
+# for item in frecuence_table:
+#   # print(item, ':', '*' * frecuence_table[item])
+#   print(item, '-', round(item + 0.1, 1), ':', '*' * frecuence_table[item], '(', frecuence_table[item], ', ', (frecuence_table[item]*100)/100 ,'%)')
+
+def generate_asterisks_frecuence_table(n, f):
+  lista = create_list(n, f)
+  frecuence_table = {round(i, 1): 0 for i in np.arange(0.0, 1.1, 0.1)}
+  for i in np.arange(0.0, 1.1, 0.1):
+    i = round(i, 1)
+    for j in lista:
+      if i <= j < i + 0.1:
+        frecuence_table[i] += 1
+  frecuence_table.pop(1)
+  # if the n value is to big, we need to divede it by 10 to have a better number of asterisks
+  denominador = n//100
+  # print the resulta as a frecuence table with asterisks
+  print( '=================== n =', n, ', f =', f.__name__, '===================')
+  for item in frecuence_table:
+    # print(item, ':', '*' * frecuence_table[item])
+    print(item, '-', round(item + 0.1, 1), ':', '*' * int(frecuence_table[item]/denominador), '(', frecuence_table[item], ', ', round((frecuence_table[item]*100)/n, 2) ,'%)')
+  print('===============================================================')
+  return frecuence_table
+
+gen1_100 = generate_asterisks_frecuence_table(100, generador1)
+gen1_5000 = generate_asterisks_frecuence_table(5000, generador1)
+gen1_100000 = generate_asterisks_frecuence_table(100000, generador1)
+gen2_100 = generate_asterisks_frecuence_table(100, generador2)
+gen2_5000 = generate_asterisks_frecuence_table(5000, generador2)
+gen2_100000 = generate_asterisks_frecuence_table(100000, generador2)
+
 # %%
