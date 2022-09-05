@@ -148,3 +148,42 @@ gen3_5000 = generate_asterisks_frecuence_table(5000, generador3)
 gen3_100000 = generate_asterisks_frecuence_table(100000, generador3)
 
 # %%
+# 4.1
+x = np.linspace(-5, 5, 100)
+plt.plot(x, np.exp(-x**2))
+plt.xlabel('x')
+plt.ylabel('fx')
+plt.grid()
+
+def integrar(n):
+  x = np.random.uniform(-5, 5, n)
+  y = np.random.uniform(0, 1, n)
+  hits = sum(y <= np.exp(-x**2))
+  mascara= y <= np.exp(-x**2)
+  return (10) * (hits) / float(n), x, y, mascara
+def graph(result, x):
+  plt.plot(result[1], result[2], '.', markersize=5)
+  plt.plot(result[1][result[3]], result[2][result[3]], '.', markersize=5)
+  plt.plot(x, np.exp(-x**2))
+  plt.xlabel('x')
+  plt.ylabel('fx')
+  plt.grid()
+
+# %%
+result = integrar(100)
+graph(result, x)
+
+print(result[0], 'RESULT FOR 100')
+
+# %%
+result1 = integrar(10000)
+graph(result1, x)
+
+print(result1[0], 'RESULT FOR 10000')
+
+# %%
+result2 = integrar(100000)
+graph(result2, x)
+
+print(result2[0], 'RESULT FOR 100000')
+# %%
