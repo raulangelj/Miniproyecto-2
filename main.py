@@ -149,12 +149,6 @@ gen3_100000 = generate_asterisks_frecuence_table(100000, generador3)
 
 # %%
 # 4.1
-x = np.linspace(-5, 5, 100)
-plt.plot(x, np.exp(-x**2))
-plt.xlabel('x')
-plt.ylabel('fx')
-plt.grid()
-
 def integrar(n):
   x = np.random.uniform(-5, 5, n)
   y = np.random.uniform(0, 1, n)
@@ -186,4 +180,54 @@ result2 = integrar(100000)
 graph(result2, x)
 
 print(result2[0], 'RESULT FOR 100000')
+
+# %%
+# 5.1
+def f1(x):
+    return 1 - math.e**(-2 * x)
+def f2(x):
+    return math.e**(-x)
+def integral_5(n):
+  x = np.random.uniform(0, 10, n)
+  y = np.random.uniform(0, 0.25, n)
+  count = []
+  points = []
+  for i in range(n):
+      if y[i] <= f1(x[i]) + f2(x[i]) - 1:
+          count.append((x[i], y[i]))
+      else:
+          points.append((x[i], y[i]))
+  convergence = (2.5) * (len(count) / n)
+  return x, y, count, points, convergence
+
+def graph(resultado):
+  plt.plot([x for x, y in resultado[2]], [y for x, y in resultado[2]],
+  marker='.',
+  linestyle='none')
+  plt.plot([x for x, y in resultado[3]], [y for x, y in resultado[3]],
+          marker='.',
+          linestyle='none')
+
+  ln = np.linspace(0, 10, 100000)
+  plt.xlabel('x')
+  plt.ylabel('f(x)')
+  plt.plot(ln, f2(ln) + f1(ln) - 1)
+  plt.show()
+
+# %%
+resultado1 = integral_5(100)
+graph(resultado1)
+print(resultado1[4])
+
+
+# %%
+resultado2 = integral_5(10000)
+graph(resultado2)
+print(resultado2[4])
+
+# %%
+resultado3 = integral_5(100000)
+graph(resultado3)
+print(resultado3[4])
+
 # %%
